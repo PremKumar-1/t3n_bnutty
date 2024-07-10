@@ -18,7 +18,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchJarCount = async () => {
             try {
-                const response = await fetch(`http://3.129.44.247/api/jarcounts/?date=${date}`);
+                const response = await fetch(`/api/jarcounts/?date=${date}`);
                 const data = await response.json();
                 console.log("Jar Count Data:", data); // Log fetched data
                 let shift1 = 0;
@@ -40,7 +40,7 @@ const Dashboard = () => {
 
         const fetchInventory = async () => {
             try {
-                const response = await fetch(`http://3.129.44.247/api/inventories/`);
+                const response = await fetch(`/api/inventories/`);
                 const data = await response.json();
                 console.log("Inventory Data:", data); // Log fetched data
                 setInventory(data);

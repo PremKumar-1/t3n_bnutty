@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './JarCount.css';
 
 const Dashboard = () => {
-    // Function to get the current date in YYYY-MM-DD format
     const getCurrentDate = () => {
         const today = new Date();
         const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const month = String(today.getMonth() + 1).padStart(2, '0');
         const day = String(today.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     };
@@ -20,7 +19,6 @@ const Dashboard = () => {
             try {
                 const response = await fetch(`/api/jarcounts/?date=${date}`);
                 const data = await response.json();
-                console.log("Jar Count Data:", data); // Log fetched data
                 let shift1 = 0;
                 let shift2 = 0;
                 let total = 0;
@@ -34,7 +32,7 @@ const Dashboard = () => {
                 });
                 setJarCount({ shift1, shift2, total });
             } catch (error) {
-                console.error("Error fetching jar count:", error); // Log any errors
+                console.error("Error fetching jar count:", error);
             }
         };
 
@@ -42,10 +40,9 @@ const Dashboard = () => {
             try {
                 const response = await fetch(`/api/inventories/`);
                 const data = await response.json();
-                console.log("Inventory Data:", data); // Log fetched data
                 setInventory(data);
             } catch (error) {
-                console.error("Error fetching inventory:", error); // Log any errors
+                console.error("Error fetching inventory:", error);
             }
         };
 
@@ -100,7 +97,7 @@ const Dashboard = () => {
                 </thead>
                 <tbody>
                     {inventory.map((item, index) => (
-                        <tr key={index}> {/* Add a unique key prop */}
+                        <tr key={index}>
                             <td>{item.product_name ? item.product_name.trim() : 'Unknown'}</td>
                             <td>{item.quantity.toFixed(2)}</td>
                         </tr>

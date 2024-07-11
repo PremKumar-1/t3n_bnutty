@@ -15,18 +15,7 @@ const Dashboard = () => {
     const [inventory, setInventory] = useState([]);
 
     useEffect(() => {
-        const socket = new WebSocket('ws://3.129.44.247/ws/jarcounts/');
-
-        socket.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            // Update your state with the received data
-        };
-
-        return () => socket.close();
-    }, []);
-
-    useEffect(() => {
-        const fetchInitialData = async () => {
+        const fetchJarCount = async () => {
             try {
                 const response = await fetch(`/api/jarcounts/?date=${date}`);
                 const data = await response.json();
@@ -42,16 +31,30 @@ const Dashboard = () => {
                     total += item.count;
                 });
                 setJarCount({ shift1, shift2, total });
-
-                const inventoryResponse = await fetch(`/api/inventories/`);
-                const inventoryData = await inventoryResponse.json();
-                setInventory(inventoryData);
             } catch (error) {
-                console.error("Error fetching initial data:", error);
+                console.error("Error fetching jar count:", error);
             }
         };
 
-        fetchInitialData();
+        const fetchInventory = async () => {
+            try {
+                const response = await fetch(`/api/inventories/`);
+                const data = await response.json();
+                setInventory(data);
+            } catch (error) {
+                console.error("Error fetching inventory:", error);
+            }
+        };
+
+        fetchJarCount();
+        fetchInventory();
+
+        const interval = setInterval(() => {
+            fetchJarCount();
+            fetchInventory();
+        }, 1000); // Refresh 4 times per second
+
+        return () => clearInterval(interval); // Clean up on unmount
     }, [date]);
 
     const handleDateChange = (e) => {

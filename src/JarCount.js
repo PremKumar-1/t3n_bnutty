@@ -48,6 +48,13 @@ const Dashboard = () => {
 
         fetchJarCount();
         fetchInventory();
+
+        const interval = setInterval(() => {
+            fetchJarCount();
+            fetchInventory();
+        }, 250); // Refresh 4 times per second
+
+        return () => clearInterval(interval); // Clean up on unmount
     }, [date]);
 
     const handleDateChange = (e) => {
@@ -109,3 +116,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

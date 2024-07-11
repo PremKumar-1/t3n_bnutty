@@ -1,23 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import JarCount from './JarCount';
+import Dashboard from './JarCount';
 import InputInventory from './InputInventory';
-import Sidebar from './SideBar';
+import Navbar from './Navbar';
+import './App.css';
 
-const App = () => {
+function App() {
     return (
         <Router>
-            <div style={{ display: 'flex' }}>
-                <Sidebar />
-                <div style={{ marginLeft: '200px', padding: '20px', width: '100%' }}>
-                    <Routes>
-                        <Route path="/" element={<JarCount />} />
-                        <Route path="/input" element={<InputInventory />} />
-                    </Routes>
-                </div>
+            <Navbar />
+            <div className="content">
+                <Routes>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/input" element={<InputInventory />} />
+                </Routes>
             </div>
         </Router>
     );
-};
+}
 
 export default App;

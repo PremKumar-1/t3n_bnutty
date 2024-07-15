@@ -52,7 +52,7 @@ const Dashboard = () => {
         const interval = setInterval(() => {
             fetchJarCount();
             fetchInventory();
-        }, 1000); // Refresh 4 times per second
+        }); // Refresh 4 times per second
 
         return () => clearInterval(interval); // Clean up on unmount
     }, [date]);

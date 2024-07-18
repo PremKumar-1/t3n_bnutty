@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './JarCount.css';
-//import Speedometer from './Speedometer';
+import Speedometer from './Speedometer';
 
 const Dashboard = () => {
     const getCurrentDate = () => {
